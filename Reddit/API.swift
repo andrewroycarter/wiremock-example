@@ -12,9 +12,11 @@ enum APIError: Error {
     case missingData
 }
 
-class API {
+class API: NSObject, URLSessionDelegate {
     
-    private let session = URLSession(configuration: .default)
+    private lazy var session: URLSession = {
+        return URLSession(configuration: .default, delegate: self, delegateQueue: nil)
+    }()
     
     func perform<T: Decodable>(request: URLRequest, completionHandler: @escaping (Result<T, Error>) -> Void) {
         let task = session.dataTask(with: request) { (data, respnose, error) in
@@ -37,5 +39,16 @@ class API {
         
         task.resume()
     }
+    
+    #if DEBUG
+    public func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
+        if challenge.protectionSpace.host == "127.0.0.1",
+            let trust = challenge.protectionSpace.serverTrust {
+            completionHandler(.useCredential, URLCredential(trust: trust))
+        } else {
+            completionHandler(.performDefaultHandling, nil)
+        }
+    }
+    #endif
     
 }

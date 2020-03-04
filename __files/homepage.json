@@ -1,0 +1,18 @@
+{
+  "data": {
+    "after": "t3_fddioi",
+    "before": null,
+    "children": [
+      {
+        "data": {
+          "title": "Hello from Wiremock!",
+          "url": "https://www.willowtreeapps.com",
+        },
+        "kind": "t3"
+      }
+    ],
+    "dist": 25,
+    "modhash": ""
+  },
+  "kind": "Listing"
+}

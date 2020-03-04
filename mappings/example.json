@@ -1,0 +1,10 @@
+{
+    "request": {
+        "method": "GET",
+        "url": "/.json"
+    },
+    "response": {
+        "status": 200,
+        "bodyFileName": "homepage.json"
+    }
+}
